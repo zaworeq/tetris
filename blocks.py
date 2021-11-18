@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image
 import time
 
 SPAWNX = 237
@@ -20,6 +21,9 @@ class Block:
     def move_right(self, event):
         self.canvas.move(self.image, +10, 0)
 
+    def rotation(self, event):
+        pass
+
     def fall(self,):
         coordinates = self.canvas.coords(self.image)
         # print(coordinates)
@@ -29,6 +33,7 @@ class Block:
 
         self.window.bind("<Left>", self.move_left)
         self.window.bind("<Right>", self.move_right)
+        self.window.bind("<Up>", self.rotation)
 
 
 class SBlock(Block):
