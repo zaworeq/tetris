@@ -4,6 +4,8 @@ from blocks import *
 
 WIDTH = 500
 HEIGHT = 600
+
+
 def new_instance():
     window = Tk()
     window.title("Tetrisik")
@@ -11,6 +13,12 @@ def new_instance():
     canvas = Canvas(window, width=WIDTH, height=HEIGHT, bg="#B672D8")
     canvas.pack()
 
-    blue_block = Block(canvas, 237, 0, 10, 10, "blue")
+
+    blue_s_block = SBlock(canvas, "blue")
+
+    while True:
+        blue_s_block.s_fall()
+        window.update()
+        time.sleep(0.1)
 
     window.mainloop()
