@@ -15,9 +15,9 @@ def new_instance():
 
     blue_s_block = SBlock(window, canvas, "blue")
 
-    # while True:
-    #     blue_s_block.s_fall()
-    #     window.update()
-    #     time.sleep(0.1)
+    while True:
+        blue_s_block.fall()
+        window.update()
+        time.sleep(0.1)
 
     window.mainloop()
