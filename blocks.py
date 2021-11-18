@@ -1,34 +1,54 @@
 from tkinter import *
+import time
 
 SPAWNX = 237
-SPAWNY = 20
+SPAWNY = 30
 SPAWNVELOCITY = 10
 
 
 class Block:
 
-    def __init__(self, canvas, x, y, width, height, y_velocity, color):
+    def __init__(self, window, canvas, x, y, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, y_velocity, color):
         self.canvas = canvas
-        x2 = x + width
-        y2 = y+height
-        self.image = canvas.create_rectangle(x, y, x2, y2, fill=color)
+        self.window = window
+        self.image = canvas.create_polygon(x, y, x2, y2, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, fill=color)
         self.y_velocity = y_velocity
 
-    def fall(self):
+    def move_left(self, event):
+        self.canvas.move(self.image, -10, 0)
+
+    def move_right(self, event):
+        self.canvas.move(self.image, +10, 0)
+
+    def fall(self,):
         coordinates = self.canvas.coords(self.image)
         # print(coordinates)
-        if(coordinates[3]>=(self.canvas.winfo_height() - 10) or coordinates[1]<0):
+        if(coordinates[3]>=(self.canvas.winfo_height() - 20) or coordinates[1]<0):
             return False
         self.canvas.move(self.image, 0, self.y_velocity)
+
+        self.window.bind("<Left>", self.move_left)
+        self.window.bind("<Right>", self.move_right)
 
 
 class SBlock(Block):
 
-    def __init__(self, canvas, color):
+    def __init__(self, window, canvas, color):
         self.canvas = canvas
-        self.block1 = Block(canvas, SPAWNX, SPAWNY, 10, 20, SPAWNVELOCITY, color)
-        self.block2 = Block(canvas, SPAWNX - 10, SPAWNY + 10, 10, 20, SPAWNVELOCITY, color)
+        self.window = window
+        self.block1 = Block(window,
+                            canvas,
+                            SPAWNX, SPAWNY,
+                            SPAWNX, SPAWNY + 10,
+                            SPAWNX - 10, SPAWNY + 10,
+                            SPAWNX - 10, SPAWNY + 20,
+                            SPAWNX + 10, SPAWNY + 20,
+                            SPAWNX + 10, SPAWNY + 10,
+                            SPAWNX + 20, SPAWNY + 10,
+                            SPAWNX + 20, SPAWNY,
+                            SPAWNVELOCITY, color)
 
-    def s_fall(self):
-        self.block1.fall()
-        self.block2.fall()
+        while True:
+            self.block1.fall()
+            window.update()
+            time.sleep(0.1)

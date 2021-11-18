@@ -13,12 +13,11 @@ def new_instance():
     canvas = Canvas(window, width=WIDTH, height=HEIGHT, bg="#B672D8")
     canvas.pack()
 
+    blue_s_block = SBlock(window, canvas, "blue")
 
-    blue_s_block = SBlock(canvas, "blue")
-
-    while True:
-        blue_s_block.s_fall()
-        window.update()
-        time.sleep(0.1)
+    # while True:
+    #     blue_s_block.s_fall()
+    #     window.update()
+    #     time.sleep(0.1)
 
     window.mainloop()
