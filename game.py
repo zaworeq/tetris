@@ -13,7 +13,7 @@ def new_instance():
     canvas = Canvas(window, width=WIDTH, height=HEIGHT, bg="#B672D8")
     canvas.pack()
 
-    blue_s_block = SBlock(window, canvas, "blue")
+    blue_s_block = ZBlock(window, canvas, "blue")
 
     while True:
         blue_s_block.fall()
