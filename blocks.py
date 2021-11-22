@@ -1,3 +1,4 @@
+import random
 from tkinter import *
 from PIL import Image
 import time
@@ -5,6 +6,7 @@ import time
 SPAWNX = 235
 SPAWNY = 30
 SPAWNVELOCITY = 10
+STATES = ['horizontal', 'vertical']
 
 
 class ZBlock:
@@ -13,16 +15,27 @@ class ZBlock:
         self.canvas = canvas
         self.window = window
         self.color = color
-        self.state = "horizontal"
-        self.image = canvas.create_polygon(SPAWNX, SPAWNY,
-                                            SPAWNX, SPAWNY + 10,
-                                            SPAWNX - 10, SPAWNY + 10,
-                                            SPAWNX - 10, SPAWNY + 20,
-                                            SPAWNX + 10, SPAWNY + 20,
-                                            SPAWNX + 10, SPAWNY + 10,
-                                            SPAWNX + 20, SPAWNY + 10,
-                                            SPAWNX + 20, SPAWNY,
-                                            fill=self.color)
+        self.state = random.choice(STATES)
+        if(self.state == 'horizontal'):
+            self.image = canvas.create_polygon(SPAWNX, SPAWNY,
+                                                SPAWNX, SPAWNY + 10,
+                                                SPAWNX - 10, SPAWNY + 10,
+                                                SPAWNX - 10, SPAWNY + 20,
+                                                SPAWNX + 10, SPAWNY + 20,
+                                                SPAWNX + 10, SPAWNY + 10,
+                                                SPAWNX + 20, SPAWNY + 10,
+                                                SPAWNX + 20, SPAWNY,
+                                                fill=self.color)
+        else:
+            self.image = canvas.create_polygon(SPAWNX, SPAWNY,
+                                                SPAWNX, SPAWNY - 10,
+                                                SPAWNX - 10, SPAWNY - 10,
+                                                SPAWNX - 10, SPAWNY + 10,
+                                                SPAWNX, SPAWNY + 10,
+                                                SPAWNX, SPAWNY + 20,
+                                                SPAWNX + 10, SPAWNY + 20,
+                                                SPAWNX + 10, SPAWNY,
+                                                fill=self.color)
 
     def move_left(self, event):
         coordinates = self.canvas.coords(self.image)
@@ -55,7 +68,6 @@ class ZBlock:
                                                 fill=self.color)
             self.state = "vertical"
         elif(self.state == "vertical" and coordinates[0] <= (self.canvas.winfo_width() - 15) and coordinates[0] > (self.canvas.winfo_width() - 25)):
-            print(coordinates)
             self.canvas.move(self.image, -10, 0)
             self.canvas.delete(self.image)
             self.image = self.canvas.create_polygon(coordinates[0] - 10, coordinates[1],

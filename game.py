@@ -1,9 +1,13 @@
 from tkinter import *
 import time
+import random
 from blocks import *
 
 WIDTH = 500
 HEIGHT = 600
+
+color_list = ['red', 'blue', 'yellow', 'green', 'pink', 'orange']
+random_color = random.choice(color_list)
 
 
 def new_instance():
@@ -13,10 +17,10 @@ def new_instance():
     canvas = Canvas(window, width=WIDTH, height=HEIGHT, bg="#B672D8")
     canvas.pack()
 
-    blue_s_block = ZBlock(window, canvas, "blue")
+    z_block = ZBlock(window, canvas, random_color)
 
     while True:
-        blue_s_block.fall()
+        z_block.fall()
         window.update()
         time.sleep(0.1)
 
