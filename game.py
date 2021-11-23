@@ -6,8 +6,24 @@ from blocks import *
 WIDTH = 500
 HEIGHT = 600
 
-color_list = ['red', 'blue', 'yellow', 'green', 'pink', 'orange']
-random_color = random.choice(color_list)
+
+class Game:
+
+    def __init__(self, window, canvas):
+        self.window = window
+        self.canvas = canvas
+        self.color_list = ['red', 'blue', 'yellow', 'green', 'pink', 'orange']
+        self.random_color = random.choice(self.color_list)
+        self.object_list = []
+
+        for index in range(0, 10):
+            index = ZBlock(self.window, self.canvas, self.random_color)
+            self.object_list.append(index)
+
+            while True:
+                index.fall()
+                window.update()
+                time.sleep(0.1)
 
 
 def new_instance():
@@ -17,11 +33,6 @@ def new_instance():
     canvas = Canvas(window, width=WIDTH, height=HEIGHT, bg="#B672D8")
     canvas.pack()
 
-    z_block = ZBlock(window, canvas, random_color)
-
-    while True:
-        z_block.fall()
-        window.update()
-        time.sleep(0.1)
+    game = Game(window, canvas)
 
     window.mainloop()
